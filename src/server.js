@@ -36,8 +36,8 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({ "error": message });
 }
 
-//create a new book
-app.post("/api/bookstore", bookstore.create, function (req, res) {
+//create a new book > bookstore.create
+app.post("/api/bookstore", function (req, res) {
   let newBook = req.body;
 
   if (!req.body.name) {
@@ -53,8 +53,8 @@ app.post("/api/bookstore", bookstore.create, function (req, res) {
   }
 });
 
-//retrieve all in bookstore_list
-app.get("/api/bookstore", bookstore.findAll, function (req, res) {
+//retrieve all in bookstore_list > bookstore.findAll,
+app.get("/api/bookstore", function (req, res) {
   db.collection(BooksCollection).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Sorry, failed to get contacts.");
@@ -64,28 +64,28 @@ app.get("/api/bookstore", bookstore.findAll, function (req, res) {
   });
 });
 
-//retrieve all published books
-app.get("/api/bookstore/published", bookstore.findAllPublished, function (req, res) {
+//retrieve all published books > bookstore.findAllPublished
+app.get("/api/bookstore/published", function (req, res) {
 
 });
 
-//retrieve one book by id
-app.get("/api/bookstore/:id", bookstore.findOne, function (req, res) {
+//retrieve one book by id > bookstore.findOne,
+app.get("/api/bookstore/:id", function (req, res) {
 
 });
 
-//update a book item by id
-app.put("/api/bookstore/:id", bookstore.update, function (req, res) {
+//update a book item by id > , bookstore.update
+app.put("/api/bookstore/:id", function (req, res) {
 
 });
 
-//delete book item by id
-app.delete("/api/bookstore/:id", bookstore.delete, function (req, res) {
+//delete book item by id >  bookstore.delete,
+app.delete("/api/bookstore/:id", function (req, res) {
 
 });
 
-//delete all books in the list
-app.delete("/api/bookstore", bookstore.deleteAll, function (req, res) {
+//delete all books in the list > bookstore.deleteAll,
+app.delete("/api/bookstore", function (req, res) {
 
 });
 
