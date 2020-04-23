@@ -22,8 +22,6 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:2701
 let db = client.db();
 
 
-  console.log("Database connection ready");
-
   // Initialize the app.
   let server = app.listen(process.env.PORT || 8080, function () {
     let port = server.address().port;
@@ -77,16 +75,26 @@ app.get("/api/bookstore/:id", function (req, res) {
 
 //update a book item by id > , bookstore.update
 app.put("/api/bookstore/:id", function (req, res) {
+  let updateBook = req.body;
+  delete updateBook._id;
 
+  db.collection(BooksCollection).update({_id: new ObjectID(req.params.id)}, updateBook, function(err, doc){
+    if (err){
+      handleError(res,err.message, "Error on updating book item");
+    } else {
+      updateBook._id = req.params.id;
+      res.status(200).json(updateBook);
+    }
+  });
 });
 
 //delete book item by id >  bookstore.delete,
 app.delete("/api/bookstore/:id", function (req, res) {
-
+  db.collection(BooksCollection).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result){
+    if (err) {
+      handleError(res, err.message, "Error on deleting book title");
+    }
+  });
 });
 
-//delete all books in the list > bookstore.deleteAll,
-app.delete("/api/bookstore", function (req, res) {
-
-});
 
