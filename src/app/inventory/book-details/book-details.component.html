@@ -1,1 +1,96 @@
-<p>book-details works!</p>
+<div *ngIf="currentBook" class="edit-form">
+  <h4>Book: </h4>
+  <form>
+    <div class="form-group">
+      <label for="theme">Book theme:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="theme"
+        required
+        [(ngModel)]="currentBook.theme"
+        name="theme"
+      />
+    </div>
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="author"
+        required
+        [(ngModel)]="currentBook.author"
+        name="author"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="title">Book title:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        required
+        [(ngModel)]="currentBook.title"
+        name="title"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <input
+        class="form-control"
+        id="genre"
+        required
+        [(ngModel)]="currentBook.genre"
+        name="genre"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        required
+        [(ngModel)]="currentBook.price"
+        name="price"
+      />
+    </div>
+
+    <div class="form-group">
+      <label><strong>Status:</strong></label>
+      {{ currentBook.published ? "Published" : "Pending" }}
+    </div>
+  </form>
+
+  <!-- <button
+    class="badge badge-primary mr-2"
+    *ngIf="currentBook.published"
+    (click)="updatePublished(false)"
+  >
+    UnPublish
+  </button>
+  <button
+    *ngIf="!currentBook.published"
+    class="badge badge-primary mr-2"
+    (click)="updatePublished(true)"
+  >
+    Publish
+  </button> -->
+
+  <button class="badge badge-danger mr-2" (click)="deleteBook()">
+    Delete
+  </button>
+
+  <button type="submit" class="badge badge-success" (click)="updateBook()">
+    Update
+  </button>
+  <p>{{ message }}</p>
+</div>
+
+<div *ngIf="!currentBook">
+  <br />
+  <p>Cannot access the book item.</p>
+</div>
